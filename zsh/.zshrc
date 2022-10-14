@@ -103,3 +103,8 @@ alias dev="~/dev"
 alias config="~/.config"
 alias desktop="~/desktop"
 alias downloads="~/downloads"
+
+# pnpm
+export PNPM_HOME="/Users/nik/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
