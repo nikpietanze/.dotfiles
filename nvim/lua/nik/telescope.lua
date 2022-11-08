@@ -22,24 +22,13 @@ require("telescope").setup({
 			},
 		},
 	},
-	--[[
-	extensions = {
-		fzy_native = {
-			override_generic_sorter = false,
-			override_file_sorter = true,
-		},
-	},
-    ]]
 })
 
 require("telescope").load_extension("git_worktree")
--- require("telescope").load_extension("fzy_native")
 
 local M = {}
 
 function M.reload_modules()
-	-- Because TJ gave it to me.  Makes me happpy.  Put it next to his other
-	-- awesome things.
 	local lua_dirs = vim.fn.glob("./lua/*", 0, 1)
 	for _, dir in ipairs(lua_dirs) do
 		dir = string.gsub(dir, "./lua/", "")
@@ -50,7 +39,7 @@ end
 M.search_dotfiles = function()
 	require("telescope.builtin").find_files({
 		prompt_title = "< VimRC >",
-		cwd = vim.env.DOTFILES,
+		cwd = "/home/nik/.config/nvim",
 		hidden = true,
 	})
 end
@@ -88,9 +77,7 @@ end
 
 M.dev = function(opts)
 	opts = opts or {}
-
 	opts.cwd = opts.cwd or vim.loop.fs_realpath(vim.loop.cwd())
-	print("HEY BAE", opts.cwd)
 
 	local possible_files = vim.api.nvim_get_runtime_file("/lua/**/dev.lua", true)
 	local local_files = {}
@@ -106,9 +93,6 @@ M.dev = function(opts)
 	local loaded = loadfile(dev)
 	local ok, mod = pcall(loaded)
 	if not ok then
-		print("===================================================")
-		print("HEY NIK. YOUR CODE DOESNT WORK. THIS IS NOT ON ME")
-		print("===================================================")
 		return
 	end
 
@@ -124,10 +108,7 @@ M.dev = function(opts)
 
 	local mod_name = vim.split(dev, "/lua/")
 	if #mod_name ~= 2 then
-		print("===================================================")
-		print("HEY NIK. I DO NOT KNOW HOW TO FIND THIS FILE:")
 		print(dev)
-		print("===================================================")
 	end
 	mod_name = string.gsub(mod_name[2], ".lua$", "")
 	mod_name = string.gsub(mod_name, "/", ".")
@@ -149,7 +130,6 @@ M.dev = function(opts)
 		previewer = previewers.builtin.new(opts),
 		attach_mappings = function(_, map)
 			actions.select_default:replace(function(...)
-				-- print("SELECTED", vim.inspect(action_state.get_selected_entry()))
 				local entry = action_state.get_selected_entry()
 				actions.close(...)
 
@@ -161,7 +141,6 @@ M.dev = function(opts)
 				actions.close(...)
 
 				vim.schedule(function()
-					-- vim.cmd(string.format([[normal!]], entry.value.text))
 					vim.api.nvim_feedkeys(
 						vim.api.nvim_replace_termcodes(
 							string.format("<esc>:lua require('%s').%s()", mod_name, entry.value.text),

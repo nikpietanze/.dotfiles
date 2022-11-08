@@ -10,7 +10,7 @@ return require("packer").startup(function(use)
 
     use({
         "nvim-lualine/lualine.nvim",
-        requires = {"kyazdani42/nvim-web-devicons", opt = true}
+        requires = { "kyazdani42/nvim-web-devicons", opt = true }
     })
 
     use("neovim/nvim-lspconfig")
@@ -30,19 +30,13 @@ return require("packer").startup(function(use)
 
     use("mbbill/undotree")
 
+    -- Themes
     use("gruvbox-community/gruvbox")
     use("folke/tokyonight.nvim")
-    use({
-        "catppuccin/nvim",
-        as = "catppuccin",
-        config = function()
-            vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-            require("catppuccin").setup()
-            vim.api.nvim_command("colorscheme catppuccin")
-        end
-    })
+    use({ "catppuccin/nvim", as = "catppuccin" })
+    use({ "rose-pine/neovim", as = "rose-pine" })
 
-    use("nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"})
+    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 
     use("nvim-treesitter/playground")
     use("romgrk/nvim-treesitter-context")

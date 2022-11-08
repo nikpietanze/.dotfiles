@@ -3,7 +3,6 @@ require("nik.packer")
 require("nik.neogit")
 require("nik.debugger")
 require("nik.statusline")
-require("nik.colors")
 
 local augroup = vim.api.nvim_create_augroup
 NikGroup = augroup('nik', {})
