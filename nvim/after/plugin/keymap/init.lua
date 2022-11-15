@@ -8,9 +8,21 @@ local nmap = Remap.nmap
 nnoremap("<leader>pv", ":Ex<CR>")
 nnoremap("<leader>u", ":UndotreeShow<CR>")
 
+-- movement
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
+nnoremap("W", "$")
+vnoremap("W", "$")
+nnoremap("B", "^")
+vnoremap("B", "^")
+
 -- move code up or down
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
+
+-- indenting
+vnoremap("=", ">gv")
+vnoremap("+", "<gv")
 
 -- yank
 nmap("<leader>Y", '"+Y')
@@ -27,9 +39,5 @@ xnoremap("<leader>p", '"_dP')
 
 -- esc
 inoremap("<C-c>", "<Esc>")
-
--- beginning/end of line
-nnoremap("W", "$")
-nnoremap("B", "^")
 
 nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
