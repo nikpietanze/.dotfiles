@@ -1,12 +1,14 @@
 vim.api.nvim_command("colorscheme rose-pine")
 
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+
 vim.g.tokyonight_transparent_sidebar = true
 vim.g.tokyonight_transparent = true
 vim.g.gruvbox_contrast_dark = "hard"
 vim.g.gruvbox_invert_selection = '0'
 vim.opt.background = "dark"
 
+-- Catppuccin stuff
+vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 local colors = require("catppuccin.palettes").get_palette()
 colors.none = "NONE"
 require("catppuccin").setup({
@@ -37,6 +39,7 @@ local hl = function(thing, opts)
     vim.api.nvim_set_hl(0, thing, opts)
 end
 
+-- Overrides
 hl("SignColumn", {
     bg = "none",
 })

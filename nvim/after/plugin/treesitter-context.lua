@@ -20,12 +20,10 @@ function ContextSetup(show_all_context)
                 "switch",
                 "case",
             },
-
             rust = {
                 "loop_expression",
                 "impl_item",
             },
-
             typescript = {
                 "class_declaration",
                 "abstract_class_declaration",
