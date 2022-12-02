@@ -9,17 +9,20 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.opt.completeopt = {
-    "menu",
     "menuone",
+    "noinsert",
     "noselect"
 }
 
--- Setup nvim-cmp.
+vim.opt.shortmess = vim.opt.shortmess + "c"
+
 local cmp = require("cmp")
 cmp.setup({
+    preselect = cmp.PreselectMode.none,
     snippet = {
         expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            --require("luasnip").lsp_expand(args.body)
+            vim.fn["vsnip#anonymous"](args.body)
         end,
     },
     mapping = cmp.mapping.preset.insert({
@@ -35,7 +38,8 @@ cmp.setup({
     }),
     sources = {
         { name = "nvim_lsp" },
-        { name = "luasnip" },
+        { name = "vsnip" },
+        { name = "path" },
         { name = "buffer" },
     },
 })
@@ -83,7 +87,6 @@ require("lspconfig").gopls.setup(config({
         },
     },
 }))
-require('lspconfig').rust_analyzer.setup { config() }
 require("lspconfig").sumneko_lua.setup(config({
     cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     settings = {
@@ -104,6 +107,29 @@ require("lspconfig").sumneko_lua.setup(config({
         },
     },
 }))
+require("rust-tools").setup({
+    tools = {
+        runnables = {
+            use_telescope = true,
+        },
+        inlay_hints = {
+            auto = true,
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+        },
+    },
+    server = config({
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy",
+                },
+            },
+        },
+
+    }),
+})
 
 local opts = {
     highlight_hovered_item = true,

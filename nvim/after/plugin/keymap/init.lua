@@ -9,8 +9,8 @@ nnoremap("<leader>pv", ":Ex<CR>")
 nnoremap("<leader>u", ":UndotreeShow<CR>")
 
 -- movement
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("<C-u>", "<C-u>zz")
+nnoremap("<C-j>", "<C-d>zz")
+nnoremap("<C-k>", "<C-u>zz")
 nnoremap("W", "$")
 vnoremap("W", "$")
 nnoremap("B", "^")
