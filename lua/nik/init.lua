@@ -1,11 +1,8 @@
 require("nik.set")
-require("nik.packer")
-require("nik.neogit")
-require("nik.debugger")
-require("nik.statusline")
+require("nik.remap")
 
 local augroup = vim.api.nvim_create_augroup
-NikGroup = augroup('nik', {})
+local NikGroup = augroup('Nik', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -25,18 +22,10 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
-    group = NikGroup,
-    pattern = "*.rs",
-    callback = function()
-        require("lsp_extensions").inlay_hints {}
-    end
-})
-
 autocmd({ "BufWritePre" }, {
     group = NikGroup,
     pattern = "*",
-    command = "%s/\\s\\+$//e",
+    command = [[%s/\s\+$//e]],
 })
 
 vim.g.netrw_browse_split = 0
